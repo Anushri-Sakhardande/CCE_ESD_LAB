@@ -1,0 +1,173 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ; Stack Pointer val
+                                                            ue when Stack is em
+                                                            pty
+    6 00000004 00000000        DCD              Reset_Handler ; Reset vector
+    7 00000008                 ALIGN
+    8 00000008         
+    9 00000008                 AREA             mycode, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000                 EXPORT           Reset_Handler
+   12 00000000         
+   13 00000000         Reset_Handler
+   14 00000000         ; Initialize pointers to source and destination
+   15 00000000 4807            LDR              R0, =SRC    ; Load the address 
+                                                            of SRC into R0 (num
+                                                            ber to check)
+   16 00000002 4908            LDR              R1, =DST    ; Load the address 
+                                                            of DST into R1 (res
+                                                            ult destination)
+   17 00000004         
+   18 00000004 6802            LDR              R2, [R0]    ; Load the value fr
+                                                            om SRC into R2
+   19 00000006 F012 0201       ANDS             R2, R2, #1  ; Perform bitwise A
+                                                            ND between R2 and 1
+                                                            
+   20 0000000A         ; (If the result is 0, the number is even)
+   21 0000000A D003            BEQ              IS_EVEN     ; If zero flag is s
+                                                            et, number is even,
+                                                             branch to IS_EVEN
+   22 0000000C         
+   23 0000000C F04F 0300       MOV              R3, #0      ; If the number is 
+                                                            odd, set R3 to 0
+   24 00000010 600B            STR              R3, [R1]    ; Store 0 in DST (i
+                                                            ndicating odd)
+   25 00000012 E002            B                STOP        ; Branch to STOP
+   26 00000014         
+   27 00000014         IS_EVEN
+   28 00000014 F04F 0301       MOV              R3, #1      ; If the number is 
+                                                            even, set R3 to 1
+   29 00000018 600B            STR              R3, [R1]    ; Store 1 in DST (i
+                                                            ndicating even)
+   30 0000001A         
+   31 0000001A         STOP
+   32 0000001A E7FE            B                STOP        ; Infinite loop to 
+                                                            stop execution
+   33 0000001C         
+   34 0000001C 00000004 
+                       SRC     DCD              0x00000004  ; The number to che
+                                                            ck (change this val
+                                                            ue to test)
+   35 00000020 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   36 00000000 00000000 
+                       DST     DCD              0           ; Destination for t
+                                                            he result (1 for ev
+                                                            en, 0 for odd)
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   37 00000004         
+   38 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\even_o
+dd.d -o.\even_odd.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\even_odd.lst even_od
+d.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file even_odd.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file even_odd.s
+   Uses
+      At line 2 in file even_odd.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+IS_EVEN 00000014
+
+Symbol: IS_EVEN
+   Definitions
+      At line 27 in file even_odd.s
+   Uses
+      At line 21 in file even_odd.s
+Comment: IS_EVEN used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 13 in file even_odd.s
+   Uses
+      At line 6 in file even_odd.s
+      At line 11 in file even_odd.s
+
+SRC 0000001C
+
+Symbol: SRC
+   Definitions
+      At line 34 in file even_odd.s
+   Uses
+      At line 15 in file even_odd.s
+Comment: SRC used once
+STOP 0000001A
+
+Symbol: STOP
+   Definitions
+      At line 31 in file even_odd.s
+   Uses
+      At line 25 in file even_odd.s
+      At line 32 in file even_odd.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 9 in file even_odd.s
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 36 in file even_odd.s
+   Uses
+      At line 16 in file even_odd.s
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 35 in file even_odd.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table

@@ -1,0 +1,231 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode,CODE,READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 481C            LDR              R0,=NUM
+   12 00000002 6801            LDR              R1,[R0]
+   13 00000004 460A            MOV              R2,R1
+   14 00000006         
+   15 00000006 EA4F 1212 
+                       COUNT   LSR              R2,#4       ;count digits
+   16 0000000A F103 0301       ADD              R3,#1       ; R3 has n 
+   17 0000000E F092 0F00       TEQ              R2,#0
+   18 00000012 D1F8            BNE              COUNT
+   19 00000014 461F            MOV              R7,R3
+   20 00000016 F107 0701       ADD              R7,#1
+   21 0000001A 4608            MOV              R0,R1
+   22 0000001C F001 020F 
+                       DIGITS  AND              R2,R1,#0x0F ;extract and power 
+                                                            n
+   23 00000020 EA4F 1131       ROR              R1,#4
+   24 00000024 442E            ADD              R6,R5       ; R6 has the sum of
+                                                             pow of digits
+   25 00000026 3F01            SUBS             R7,#1
+   26 00000028 D11A            BNE              POW
+   27 0000002A         
+   28 0000002A F04F 0500       MOV              R5,#0
+   29 0000002E EA4F 1101       LSL              R1,#4
+   30 00000032 F04F 040A       MOV              R4,#0x0A    ; convert the bcd t
+                                                            o hex for compariso
+                                                            n
+   31 00000036 F001 4270 
+                       HEX     AND              R2,R1,#0xF0000000
+   32 0000003A EA4F 7232       ROR              R2,#28
+   33 0000003E EA4F 1101       LSL              R1,#4
+   34 00000042 3B01            SUBS             R3,#1
+   35 00000044 FB05 2504       MLA              R5,R5,R4,R2
+   36 00000048 D1F5            BNE              HEX
+   37 0000004A         
+   38 0000004A 480B            LDR              R0,=RESULT
+   39 0000004C 42B5            CMP              R5,R6
+   40 0000004E D103            BNE              NOCASE
+   41 00000050 F04F 0201       MOV              R2,#1
+   42 00000054 6002            STR              R2,[R0]
+   43 00000056         STOP
+   44 00000056 E7FE            B                STOP
+   45 00000058 F04F 32FF 
+                       NOCASE  MOV              R2,#-1
+   46 0000005C 6002            STR              R2,[R0]
+   47 0000005E E7FA            B                STOP
+   48 00000060         
+   49 00000060 461C    POW     MOV              R4,R3
+   50 00000062 F04F 0501       MOV              R5,#1       ; should have answe
+                                                            r of power 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   51 00000066 FB05 F502 
+                       MULTIPLY
+                               MUL              R5,R2
+   52 0000006A 3C01            SUBS             R4,#1
+   53 0000006C D1FB            BNE              MULTIPLY
+   54 0000006E E7D5            B                DIGITS
+   55 00000070         
+   56 00000070 00000016 
+                       NUM     DCD              0x16
+   57 00000074 00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   58 00000000 00000000 
+                       RESULT  DCD              0
+   59 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\armstr
+ong.d -o.\armstrong.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\K
+eil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\armstrong.lst arms
+trong.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file armstrong.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file armstrong.s
+   Uses
+      At line 2 in file armstrong.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+COUNT 00000006
+
+Symbol: COUNT
+   Definitions
+      At line 15 in file armstrong.s
+   Uses
+      At line 18 in file armstrong.s
+Comment: COUNT used once
+DIGITS 0000001C
+
+Symbol: DIGITS
+   Definitions
+      At line 22 in file armstrong.s
+   Uses
+      At line 54 in file armstrong.s
+Comment: DIGITS used once
+HEX 00000036
+
+Symbol: HEX
+   Definitions
+      At line 31 in file armstrong.s
+   Uses
+      At line 36 in file armstrong.s
+Comment: HEX used once
+MULTIPLY 00000066
+
+Symbol: MULTIPLY
+   Definitions
+      At line 51 in file armstrong.s
+   Uses
+      At line 53 in file armstrong.s
+Comment: MULTIPLY used once
+NOCASE 00000058
+
+Symbol: NOCASE
+   Definitions
+      At line 45 in file armstrong.s
+   Uses
+      At line 40 in file armstrong.s
+Comment: NOCASE used once
+NUM 00000070
+
+Symbol: NUM
+   Definitions
+      At line 56 in file armstrong.s
+   Uses
+      At line 11 in file armstrong.s
+Comment: NUM used once
+POW 00000060
+
+Symbol: POW
+   Definitions
+      At line 49 in file armstrong.s
+   Uses
+      At line 26 in file armstrong.s
+Comment: POW used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 10 in file armstrong.s
+   Uses
+      At line 5 in file armstrong.s
+      At line 9 in file armstrong.s
+
+STOP 00000056
+
+Symbol: STOP
+   Definitions
+      At line 43 in file armstrong.s
+   Uses
+      At line 44 in file armstrong.s
+      At line 47 in file armstrong.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file armstrong.s
+   Uses
+      None
+Comment: mycode unused
+10 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 58 in file armstrong.s
+   Uses
+      At line 38 in file armstrong.s
+Comment: RESULT used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 57 in file armstrong.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+347 symbols in table

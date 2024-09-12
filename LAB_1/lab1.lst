@@ -1,0 +1,113 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000  ; Stack Pointervalu
+                                                            e when stack is emp
+                                                            ty
+    5 00000004 00000000        DCD              Reset_Handler ; reset vectors
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 F241 2034       MOVW             R0,#0x1234
+   12 00000004 F2C1 2134       MOVT             R1,#0x1234
+   13 00000008 F04F 0201       MVN              R2,#-2
+   14 0000000C 4B03            LDR              R3,=0x12345678
+   15 0000000E         STOP
+   16 0000000E E7FE            B                STOP
+   17 00000010 0000000A 
+                       NUM     EQU              10
+   18 00000010 00000008 
+              12345678 
+              ABCDEF1A SRC     DCD              8,0x12345678,0xABCDEF1A
+   19 0000001C                 END
+              12345678 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\lab1.d
+ -o.\lab1.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\In
+c\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\lab1.lst lab1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file lab1.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file lab1.s
+   Uses
+      At line 2 in file lab1.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file lab1.s
+   Uses
+      At line 5 in file lab1.s
+      At line 9 in file lab1.s
+
+SRC 00000010
+
+Symbol: SRC
+   Definitions
+      At line 18 in file lab1.s
+   Uses
+      None
+Comment: SRC unused
+STOP 0000000E
+
+Symbol: STOP
+   Definitions
+      At line 15 in file lab1.s
+   Uses
+      At line 16 in file lab1.s
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file lab1.s
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+NUM 0000000A
+
+Symbol: NUM
+   Definitions
+      At line 17 in file lab1.s
+   Uses
+      None
+Comment: NUM unused
+1 symbol
+340 symbols in table

@@ -1,0 +1,147 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ;Stack Pointervalue
+                                                             WBAC
+    6 00000004 00000000        DCD              Reset_Handler ;reset vectors
+    7 00000008                 ALIGN
+    8 00000008                 AREA             mycode, CODE, READONLY
+    9 00000000                 ENTRY
+   10 00000000                 EXPORT           Reset_Handler
+   11 00000000         Reset_Handler
+   12 00000000 4820            LDR              R0, =array  ; Load the base add
+                                                            ress of the origina
+                                                            l array into R0
+   13 00000002 4920            LDR              R1, =element ; Load the address
+                                                             of the element to 
+                                                            search into R1
+   14 00000004 680A            LDR              R2, [R1]    ; Load the search e
+                                                            lement into R2
+   15 00000006 F04F 0300       MOV              R3, #0      ; Clear the flag (0
+                                                             = not found)
+   16 0000000A F04F 0400       MOV              R4, #0      ; Initialize loop c
+                                                            ounter for the sour
+                                                            ce array
+   17 0000000E F04F 0500       MOV              R5, #0      ; Initialize loop c
+                                                            ounter for the dest
+                                                            ination array
+   18 00000012         
+   19 00000012         search_loop
+   20 00000012 F850 6024       LDR              R6, [R0, R4, LSL #2] ; Load the
+                                                             current element in
+                                                             the array (R4 used
+                                                             as index)
+   21 00000016 2E00            CMP              R6, #0x00   ; Check if the curr
+                                                            ent element is the 
+                                                            sentinel (end of ar
+                                                            ray)
+   22 00000018 D00B            BEQ              end_search  ; If sentinel found
+                                                            , break the loop
+   23 0000001A F847 6025       STR              R6, [R7, R5, LSL #2] ; Store th
+                                                            e current element t
+                                                            o DST array
+   24 0000001E F105 0501       ADD              R5, R5, #1  ; Increment destina
+                                                            tion loop counter
+   25 00000022 4056            EORS             R6, R6, R2  ; Compare the curre
+                                                            nt element with the
+                                                             search element
+   26 00000024 D002            BEQ              set_flag    ; If elements are e
+                                                            qual, set the flag
+   27 00000026 F104 0401       ADD              R4, R4, #1  ; Increment source 
+                                                            loop counter (next 
+                                                            array element)
+   28 0000002A E7F2            B                search_loop ; Repeat the search
+                                                             loop
+   29 0000002C         
+   30 0000002C         set_flag
+   31 0000002C F04F 0301       MOV              R3, #1      ; Set the flag to i
+                                                            ndicate the element
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                             was found
+   32 00000030 E7EF            B                search_loop ; Continue checking
+                                                             the rest of the ar
+                                                            ray
+   33 00000032         
+   34 00000032         end_search
+   35 00000032 F04F 38FF       LDR              R8, =0xFFFFFFFF ; Load the valu
+                                                            e 0xFFFFFFFF into R
+                                                            8
+   36 00000036 2B01            CMP              R3, #1      ; Check if the elem
+                                                            ent was found (flag
+                                                             = 1)
+   37 00000038 D006            BEQ              found       ; If element was fo
+                                                            und, go to found
+   38 0000003A         
+   39 0000003A         not_found
+   40 0000003A F847 2025       STR              R2, [R7, R5, LSL #2] ; Store th
+                                                            e search element at
+                                                             the end of the DST
+                                                             array
+   41 0000003E F105 0501       ADD              R5, R5, #1  ; Move to the next 
+                                                            DST array position
+   42 00000042 F847 0025       STR              R0, [R7, R5, LSL #2] ; Store se
+                                                            ntinel (0x00) at th
+                                                            e next DST array po
+                                                            sition
+   43 00000046 E005            B                end_program ; End program
+   44 00000048         
+   45 00000048         found
+   46 00000048 F847 8025       STR              R8, [R7, R5, LSL #2] ; Store 0x
+                                                            FFFFFFFF at the end
+                                                             of the DST array
+   47 0000004C F105 0501       ADD              R5, R5, #1  ; Move to the next 
+                                                            DST array position
+   48 00000050 F847 0025       STR              R0, [R7, R5, LSL #2] ; Store se
+                                                            ntinel (0x00) at th
+                                                            e next DST array po
+                                                            sition
+   49 00000054         
+   50 00000054         end_program
+   51 00000054 E7FE            B                end_program
+   52 00000056 00 00 00000010 
+              00000005 
+              00000033 
+              00000024 
+              00000056 
+              00000077 
+              00000021 
+              00000004 
+              00000087 
+              00000001 LIST    DCD              0x10, 0x05, 0x33, 0x24, 0x56, 0
+x77, 0x21, 0x04, 0x87, 0x01
+   53 00000080 00000005 
+                       ELEMENT DCD              0x05
+   54 00000084 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   55 00000000 00000000 
+              00000000 
+              00000000 
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 DST     DCD              0,0,0,0,0,0,0,0,0,0
+   56 00000028                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\search
+.d -o.\search.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\AR
+M\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\search.lst search.s

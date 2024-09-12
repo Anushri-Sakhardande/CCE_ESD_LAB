@@ -1,0 +1,1 @@
+.\armstrong.o: armstrong.s

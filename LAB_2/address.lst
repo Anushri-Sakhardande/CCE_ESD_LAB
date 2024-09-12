@@ -1,0 +1,148 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ;Stack Pointervalue
+                                                             WBAC
+    6 00000004 00000000        DCD              Reset_Handler ;reset vectors
+    7 00000008                 ALIGN
+    8 00000008                 AREA             mycode, CODE, READONLY
+    9 00000000                 ENTRY
+   10 00000000                 EXPORT           Reset_Handler
+   11 00000000         Reset_Handler                        ; Entry point for t
+                                                            he program
+   12 00000000         
+   13 00000000         ; Immediate Addressing Mode
+   14 00000000 F04F 0010       MOV              R0, #0x10   ; Load immediate va
+                                                            lue 0x10 into R0
+   15 00000004         
+   16 00000004         ; Register Addressing Mode
+   17 00000004 4601            MOV              R1, R0      ; Copy the value of
+                                                             R0 into R1
+   18 00000006         
+   19 00000006         ; Memory Addressing Mode - Direct Addressing (LDR/STR)
+   20 00000006 4A0B            LDR              R2, =SRC    ; Load a memory add
+                                                            ress into R2
+   21 00000008 6011            STR              R1, [R2]    ; Store the value o
+                                                            f R1 at the address
+                                                             in R2
+   22 0000000A 6813            LDR              R3, [R2]    ; Load the value fr
+                                                            om the memory addre
+                                                            ss in R2 into R3
+   23 0000000C         
+   24 0000000C         ; Memory Addressing Mode - Pre-indexed Addressing
+   25 0000000C 6854            LDR              R4, [R2, #4] ; Load value from 
+                                                            memory address (R2 
+                                                            + 4) into R4
+   26 0000000E 6093            STR              R3, [R2, #8] ; Store R3 at memo
+                                                            ry address (R2 + 8)
+                                                            
+   27 00000010         
+   28 00000010         ; Memory Addressing Mode - Post-indexed Addressing
+   29 00000010 F852 5B04       LDR              R5, [R2], #4 ; Load value from 
+                                                            R2 into R5, then ad
+                                                            d 12 to R2
+   30 00000014 F842 4B08       STR              R4, [R2], #8 ; Store R4 at addr
+                                                            ess R2, then add 16
+                                                             to R2
+   31 00000018         
+   32 00000018         ; Register Indirect Addressing
+   33 00000018 F852 7F04       LDR              R7,  [R2, #4]! ; Load from memo
+                                                            ry address (R6 + R7
+                                                            ) into R8
+   34 0000001C F842 5F08       STR              R5,  [R2, #8]! ; Store R8 at me
+                                                            mory address (R6 + 
+                                                            R7)
+   35 00000020         
+   36 00000020 E7FF            B                END_LOOP    ; Infinite loop to 
+                                                            stop execution
+   37 00000022         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   38 00000022         END_LOOP
+   39 00000022 E7FE            B                END_LOOP
+   40 00000024 12345678 
+              ABCDEF12 
+              12345678 
+              ABCDEF12 SRC     DCD              0x12345678, 0xABCDEF12, 0x12345
+678, 0xABCDEF12
+   41 00000034                 END
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\addres
+s.d -o.\address.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\
+ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\address.lst address.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file address.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file address.s
+   Uses
+      At line 2 in file address.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+END_LOOP 00000022
+
+Symbol: END_LOOP
+   Definitions
+      At line 38 in file address.s
+   Uses
+      At line 36 in file address.s
+      At line 39 in file address.s
+
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 11 in file address.s
+   Uses
+      At line 6 in file address.s
+      At line 10 in file address.s
+
+SRC 00000024
+
+Symbol: SRC
+   Definitions
+      At line 40 in file address.s
+   Uses
+      At line 20 in file address.s
+Comment: SRC used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 8 in file address.s
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+339 symbols in table

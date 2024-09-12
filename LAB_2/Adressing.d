@@ -1,0 +1,1 @@
+.\adressing.o: Adressing.s

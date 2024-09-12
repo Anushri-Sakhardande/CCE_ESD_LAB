@@ -1,0 +1,159 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000  ;Stack Pointervalue
+                                                             WBAC
+    6 00000004 00000000        DCD              Reset_Handler ;reset vectors
+    7 00000008                 ALIGN
+    8 00000008                 AREA             mycode, CODE, READONLY
+    9 00000000                 ENTRY
+   10 00000000                 EXPORT           Reset_Handler
+   11 00000000         Reset_Handler
+   12 00000000 480C            LDR              R0,=NUM
+   13 00000002 490D            LDR              R1,=DST
+   14 00000004 7802            LDRB             R2,[R0]     ; extract first byt
+                                                            e
+   15 00000006 F002 030F       AND              R3, R2,#0x0F ; extract first he
+                                                            x digit
+   16 0000000A 2B09            CMP              R3,#9       ; compare with 9
+   17 0000000C D901            BLS              DOWN
+   18 0000000E F103 0307       ADD              R3,#7       ; add 7 if less tha
+                                                            n 9
+   19 00000012 F103 0330 
+                       DOWN    ADD              R3,#0x30
+   20 00000016 700B            STRB             R3,[R1]     ; store first ASCII
+                                                             digit at destinati
+                                                            on
+   21 00000018 F002 03F0       AND              R3, R2,#0xF0 ; extract next hex
+                                                             digit
+   22 0000001C EA4F 1313       MOV              R3, R3, LSR#04
+   23 00000020 2B09            CMP              R3,#9       ; compare with 9
+   24 00000022 D901            BLS              DOWN1
+   25 00000024 F103 0307       ADD              R3,#7       ; add 7 if less tha
+                                                            n 9
+   26 00000028 F103 0330 
+                       DOWN1   ADD              R3,#0x30
+   27 0000002C 704B            STRB             R3,[R1,#01] ;
+   28 0000002E         
+   29 0000002E E7FE    STOP    B                STOP
+   30 00000030 0000003A 
+                       NUM     DCD              0x0000003A
+   31 00000034 00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   32 00000000 00000000 
+                       DST     DCD              0
+   33 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\hex_as
+cii.d -o.\hex_ascii.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\K
+eil\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\hex_ascii.lst hex_
+ascii.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file hex_ascii.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file hex_ascii.s
+   Uses
+      At line 2 in file hex_ascii.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DOWN 00000012
+
+Symbol: DOWN
+   Definitions
+      At line 19 in file hex_ascii.s
+   Uses
+      At line 17 in file hex_ascii.s
+Comment: DOWN used once
+DOWN1 00000028
+
+Symbol: DOWN1
+   Definitions
+      At line 26 in file hex_ascii.s
+   Uses
+      At line 24 in file hex_ascii.s
+Comment: DOWN1 used once
+NUM 00000030
+
+Symbol: NUM
+   Definitions
+      At line 30 in file hex_ascii.s
+   Uses
+      At line 12 in file hex_ascii.s
+Comment: NUM used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 11 in file hex_ascii.s
+   Uses
+      At line 6 in file hex_ascii.s
+      At line 10 in file hex_ascii.s
+
+STOP 0000002E
+
+Symbol: STOP
+   Definitions
+      At line 29 in file hex_ascii.s
+   Uses
+      At line 29 in file hex_ascii.s
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 8 in file hex_ascii.s
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 32 in file hex_ascii.s
+   Uses
+      At line 13 in file hex_ascii.s
+Comment: DST used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 31 in file hex_ascii.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+343 symbols in table

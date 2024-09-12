@@ -1,0 +1,64 @@
+ARM Linker, 5.03 [Build 24] [MDK-ARM Lite]
+
+==============================================================================
+
+Section Cross References
+
+    sort_reg.o(RESET) refers to sort_reg.o(mycode) for Reset_Handler
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing sort_reg.o(mydata), (4 bytes).
+
+1 unused section(s) (total 4 bytes) removed from the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    RESET                                    0x00000000   Section        8  sort_reg.o(RESET)
+    sort_reg.s                               0x00000000   Number         0  sort_reg.o ABSOLUTE
+    mycode                                   0x00000008   Section        0  sort_reg.o(mycode)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$P$D$K$B$S$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$STANDARDLIB$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __Vectors                                0x00000000   Data           0  sort_reg.o(RESET)
+    Reset_Handler                            0x00000009   Thumb Code     0  sort_reg.o(mycode)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image entry point : Not specified.
+
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000008, Max: 0xffffffff, ABSOLUTE)
+
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000008, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x00000008   Data   RO            1    RESET               sort_reg.o
+    0x00000008   0x00000000   Code   RO            2  * mycode              sort_reg.o
+
+
+    Execution Region ER_RW (Base: 0x10000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region ER_ZI (Base: 0x10000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+

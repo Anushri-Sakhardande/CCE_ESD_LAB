@@ -1,0 +1,1 @@
+.\pack.o: pack.s

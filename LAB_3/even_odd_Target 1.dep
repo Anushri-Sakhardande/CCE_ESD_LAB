@@ -1,0 +1,2 @@
+Dependencies for Project 'even_odd', Target 'Target 1': (DO NOT MODIFY !)
+F (.\even_odd.s)(0x66C4D42B)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\NXP\LPC17xx--list .\even_odd.lst --xref -o .\even_odd.o --depend .\even_odd.d)

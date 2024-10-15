@@ -1,0 +1,4 @@
+1 input (sensor,keyboard)
+output(LED,seven segmet,buzzer)
+sensors purchase
+synopsis next lab+progress

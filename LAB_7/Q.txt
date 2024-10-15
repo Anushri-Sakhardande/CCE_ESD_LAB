@@ -1,0 +1,5 @@
+assume that data lines 7 segment is connect to 0.4-0.11 and the selection line of the decoder is connected to P0.15 to 0.18. WAP to display 4 digit hex up-counter.
+
+Using the same above hardware circuit WAP for BCD up-down counter. The selection of up-down switch is connected to ________ . 
+
+WAP to display the keycode of a matrix keyboard whose rows are connected TO 2.10-2.13 and columns are connected to 1.23-1.26 on the multiplexed seven segment.

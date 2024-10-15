@@ -1,0 +1,9 @@
+1) Create project, give name, select controller
+2) Copy startup 
+3) "C:\Keil\ARM\Startup\NXP\LPC17xx\system_LPC17xx.c"
+
+Assume LEDs are connected to the port pin P0.4-P0.11. WAP to turn on and turn off the LEDs continuously.
+
+WAP to Johnson counter assuming LEDs are connected P0.15 to P0.22
+
+WAP to Binary up counter

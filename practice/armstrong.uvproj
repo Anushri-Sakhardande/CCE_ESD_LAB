@@ -406,9 +406,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>armstrong.s</FileName>
+              <FileName>pop_push.asm</FileName>
               <FileType>2</FileType>
-              <FilePath>.\armstrong.s</FilePath>
+              <FilePath>.\pop_push.asm</FilePath>
             </File>
           </Files>
         </Group>

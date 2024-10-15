@@ -1,0 +1,144 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000
+    5 00000004 00000000        DCD              Reset_Handler
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode,CODE,READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 480A            LDR              R0,=NUM
+   12 00000002 6801            LDR              R1,[R0]
+   13 00000004 F04F 0320       MOV              R3,#32
+   14 00000008         LOOP
+   15 00000008 0849            LSRS             R1,#1
+   16 0000000A F147 0700       ADC              R7,#0
+   17 0000000E F007 080F       AND              R8,R7,#0x0F
+   18 00000012 F1B8 0F0A       CMP              R8,#0x0A
+   19 00000016 D303            BLO              DOWN
+   20 00000018 F1A7 070A       SUB              R7,#0xA
+   21 0000001C F107 0710       ADD              R7,#0x10
+   22 00000020         DOWN
+   23 00000020 3B01            SUBS             R3,#1
+   24 00000022 D1F1            BNE              LOOP
+   25 00000024 E7FE    STOP    B                STOP
+   26 00000026 00 00 FFFFFFFF 
+                       NUM     DCD              0xFFFFFFFF
+   27 0000002C 00000000        AREA             mydata,DATA,READWRITE
+   28 00000000 00000000 
+                       RESULT  DCD              0
+   29 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\pop_pu
+sh.d -o.\pop_push.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\NXP\LPC17xx --predefine="__EVAL SETA 1" --list=.\pop_push.lst pop_pus
+h.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file pop_push.asm
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file pop_push.asm
+   Uses
+      At line 2 in file pop_push.asm
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DOWN 00000020
+
+Symbol: DOWN
+   Definitions
+      At line 22 in file pop_push.asm
+   Uses
+      At line 19 in file pop_push.asm
+Comment: DOWN used once
+LOOP 00000008
+
+Symbol: LOOP
+   Definitions
+      At line 14 in file pop_push.asm
+   Uses
+      At line 24 in file pop_push.asm
+Comment: LOOP used once
+NUM 00000028
+
+Symbol: NUM
+   Definitions
+      At line 26 in file pop_push.asm
+   Uses
+      At line 11 in file pop_push.asm
+Comment: NUM used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file pop_push.asm
+   Uses
+      At line 5 in file pop_push.asm
+      At line 9 in file pop_push.asm
+
+STOP 00000024
+
+Symbol: STOP
+   Definitions
+      At line 25 in file pop_push.asm
+   Uses
+      At line 25 in file pop_push.asm
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file pop_push.asm
+   Uses
+      None
+Comment: mycode unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 28 in file pop_push.asm
+   Uses
+      None
+Comment: RESULT unused
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 27 in file pop_push.asm
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+343 symbols in table
